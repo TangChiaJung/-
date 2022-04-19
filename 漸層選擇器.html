@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>漸層選擇器_20220418</title>
+  <style>
+    #color {
+      width: 200px;
+      height: 200px;
+      border: 1px black solid;
+      background: linear-gradient(90deg, black, white);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="color"></div>
+    <div id="left">
+      <h3>left color</h3>
+      R
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+      G
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+      B
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+    </div>
+
+
+
+    <div id="right">
+      <h3>right color</h3>
+      R
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+      G
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+      B
+      <input type="range" class="range" min="0" max="255" value="0">
+      <span class="text">0</span>
+      <input type="button" value="隨機" class="button"><br>
+
+    </div>
+
+  </div>
+
+  <script>
+    const ranges = document.getElementsByClassName('range')
+    const texts = document.getElementsByClassName('text')
+    const buttons = document.getElementsByClassName('button')
+    const color = document.getElementById('color')
+
+    let arr = [0, 0, 0, 0, 0, 0]
+    // let str = 'linear-gradient(rgba('
+    let left_color = [0, 0, 0]
+    let right_color = [0, 0, 0]
+
+
+    for (const i in ranges) {
+      ranges[i].oninput = () => {
+        arr[i] = ranges[i].value
+        texts[i].innerText = ranges[i].value
+        if (i <= 2) {
+          // str+=arr[i]+','
+          left_color[i] = arr[i]
+        } else {
+          right_color[i % 3] = arr[i]
+          // str+=arr[i]+","
+        }
+        // console.log(ranges[i].value)
+        // console.log(left_color, right_color)
+        color.style.background = 'linear-gradient(90deg,rgba(' + left_color.join(',') + ",1) ,rgba(" + right_color.join(',') + ",1))"
+        // str='linear-gradient(rgba(' + left_color.join(',') + ",1) ,rgba(" + right_color.join(',') + ",1))"
+        // console.log(str)
+      }
+    }
+    // str+=left_color.join(',')+",1)rgba("+right_color.join(',')+",1))"
+
+    for (const i in buttons) {
+
+      buttons[i].onclick = () => {
+
+        let a = Math.round(Math.random() * 255)
+        texts[i].innerText = a
+        ranges[i].value= a
+        if (i <= 2) {
+          // str+=arr[i]+','
+          left_color[i] =ranges[i].value
+        } else {
+          right_color[i % 3] = ranges[i].value
+          // str+=arr[i]+","
+        }
+        color.style.background = 'linear-gradient(90deg,rgba(' + left_color.join(',') + ",1) ,rgba(" + right_color.join(',') + ",1))"
+      }
+    }
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

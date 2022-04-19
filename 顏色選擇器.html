@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px black solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div"></div>
+    <input class="range" type="range" min="0" max="255">
+    <span></span>
+    <input type="button" value="隨機">
+    <br>
+    <input class="range" type="range" min="0" max="255">
+    <span></span>
+    <input type="button" value="隨機">
+    <br>
+    <input class="range" type="range" min="0" max="255">
+    <span></span>
+    <input type="button" value="隨機">
+    <br>
+
+    <script>
+        let div = document.getElementById('div')
+        let ranges = document.getElementsByClassName('range')
+        let spans = document.getElementsByTagName('span')
+        let num = 0
+        let buttons = document.querySelectorAll('input[type=button]')
+
+
+        div.style.background = 'rgb(0,0,0)'
+
+        // 取值
+        const color = () => {
+
+            let  n = 0 //index
+            let str_bg = 'rgba('
+
+            for (let range of ranges) {
+                str_bg+=range.value+','
+
+                spans[n].innerText=range.value //index -> 值
+                n++ //index++
+
+                console.log(range.value)
+            }
+            str_bg+= '1)'
+            div.style.background = str_bg
+
+            console.log(str_bg)
+        }
+        // 叫上面的function 觸發事件
+        for (let range of ranges) {
+            range.onchange = () => {
+                color()
+            }
+        }
+
+        color()
+
+        //隨機
+    
+        for(let index in buttons){
+
+            buttons[index].onclick=(e)=>{
+                console.log(index)
+                ranges[index].value=Math.round(Math.random()*255)
+                color()
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
